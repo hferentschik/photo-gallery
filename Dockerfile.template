@@ -8,7 +8,8 @@ COPY package.json package.json
 
 # This install npm dependencies on the balena build server,
 # making sure to clean up the artifacts it creates in order to reduce the image size.
-RUN JOBS=MAX npm install --production --unsafe-perm && npm cache verify
+RUN npm install --production --unsafe-perm \
+ && npm cache verify
 
 FROM balenalib/%%BALENA_ARCH%%-node:11-buster
 COPY --from=build /usr/src/app/node_modules node_modules
